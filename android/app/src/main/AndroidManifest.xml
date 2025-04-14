@@ -1,22 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.demo_clipboard">
-
-    <!-- Permissions -->
- 
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:label="Clip_Board_mp3"
+        android:label="demo_clipboard"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.ryanheise.audioservice.AudioServiceActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
@@ -35,6 +37,19 @@
             </intent-filter>
         </activity>
 
+           <service android:name="com.ryanheise.audioservice.AudioService"
+           android:foregroundServiceType="mediaPlayback"
+           android:exported="true">
+               <intent-filter>
+                   <action android:name="android.media.browse.MediaBrowserService" />
+               </intent-filter>
+            </service>
+            <receiver android:name="com.ryanheise.audioservice.MediaButtonReceiver"
+                android:exported="true">
+                <intent-filter>
+                    <action android:name="android.intent.action.MEDIA_BUTTON" />
+                </intent-filter>
+            </receiver>
         <!-- Don't delete this meta-data below -->
         <meta-data
             android:name="flutterEmbedding"

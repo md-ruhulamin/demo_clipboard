@@ -34,7 +34,7 @@ class PremiumUpgradeScreen extends StatelessWidget {
             child: Column(
               children: [
               Image.asset(
-                  'assests/audio.jpg',
+                  'assets/audio.jpg',
                   height: 160,
                 ),
               
